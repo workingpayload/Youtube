@@ -14,6 +14,7 @@ import { CgClose } from "react-icons/cg";
 
 import { Context } from "../context/contextApi";
 import Loader from "../shared/loader";
+import { SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 
 const Header = () => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -37,6 +38,7 @@ const Header = () => {
 
     const { pathname } = useLocation();
     const pageName = pathname?.split("/")?.filter(Boolean)?.[0];
+    const { user } = useUser();
 
     return (
         <div className="sticky top-0 z-10 flex flex-row items-center justify-between h-14 px-4 md:px-5 bg-white dark:bg-black">
@@ -98,8 +100,12 @@ const Header = () => {
                         <FiBell className="text-white text-xl cursor-pointer" />
                     </div>
                 </div>
-                <div className="flex h-8 w-8 overflow-hidden rounded-full md:ml-4">
-                    <img src={Logo} />
+                <div className="flex h-8 w-8 overflow-hidden rounded-full md:ml-4 cursor-pointer">
+                   {user ? (<UserButton afterSignOutUrl="/"/>) : (
+                    <SignInButton>
+                        <img src={Logo} alt="Avatar" />
+                    </SignInButton>
+                   )}
                 </div>
             </div>
         </div>
