@@ -6,7 +6,7 @@ import { categories } from "../utils/constants";
 import { Context } from "../context/contextApi";
 
 const LeftNav = () => {
-    const { selectedCategory, setSelectedCategory, mobileMenu } =
+    const { selectedCategory, setSelectedCategory, mobileMenu, setMobileMenu } =
         useContext(Context);
 
     const navigate = useNavigate();
@@ -43,6 +43,7 @@ const LeftNav = () => {
                                 icon={item.icon}
                                 action={() => {
                                     clickHandler(item.name, item.type);
+                                    setMobileMenu(false);
                                     navigate("/");
                                 }}
                                 className={`${
